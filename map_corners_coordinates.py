@@ -85,6 +85,9 @@ class Map_Corners_Coordinates():
 
         self.dlg.pushButton.clicked.connect(self.read_coor)        
         
+        # add plugin icon into plugin toolbar
+        self.toolButton = QToolButton()
+        self.iface.addToolBarWidget(self.toolButton)
 
    
 
@@ -135,12 +138,10 @@ class Map_Corners_Coordinates():
         icon_path = ':/plugins/Map_Corners_Coordinates/icon.png'
         self.add_action(
             icon_path,
-            text=self.tr(u'Map_Corners_Coordinates'),
+            text=self.tr(u'Map Corners Coordinates'),
             callback=self.run,
             parent=self.iface.mainWindow())
-#        self.
-#        self.action.setIcon(QIcon(":/plugins/Map_Corners_Coordinates/icon.png"))
-        
+
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:

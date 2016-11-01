@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>508</width>
-    <height>253</height>
+    <width>531</width>
+    <height>277</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="button_box">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>220</y>
+     <x>170</x>
+     <y>240</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -56,7 +56,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>80</y>
+     <y>90</y>
      <width>171</width>
      <height>22</height>
     </rect>
@@ -65,8 +65,8 @@
   <widget class="QLineEdit" name="coor_NEY">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>110</y>
+     <x>340</x>
+     <y>120</y>
      <width>171</width>
      <height>22</height>
     </rect>
@@ -76,7 +76,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>110</y>
+     <y>120</y>
      <width>171</width>
      <height>22</height>
     </rect>
@@ -85,8 +85,8 @@
   <widget class="QLineEdit" name="coor_NEX">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>80</y>
+     <x>340</x>
+     <y>90</y>
      <width>171</width>
      <height>22</height>
     </rect>
@@ -121,9 +121,9 @@
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>400</x>
+     <x>390</x>
      <y>10</y>
-     <width>91</width>
+     <width>121</width>
      <height>22</height>
     </rect>
    </property>
@@ -135,8 +135,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>80</y>
-     <width>21</width>
+     <y>90</y>
+     <width>51</width>
      <height>16</height>
     </rect>
    </property>
@@ -148,7 +148,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>80</y>
+     <y>90</y>
      <width>21</width>
      <height>16</height>
     </rect>
@@ -161,7 +161,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>110</y>
+     <y>120</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -173,9 +173,9 @@
   <widget class="QLabel" name="label_6">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>80</y>
-     <width>21</width>
+     <x>280</x>
+     <y>90</y>
+     <width>41</width>
      <height>16</height>
     </rect>
    </property>
@@ -186,8 +186,8 @@
   <widget class="QLabel" name="label_7">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>80</y>
+     <x>320</x>
+     <y>90</y>
      <width>21</width>
      <height>16</height>
     </rect>
@@ -196,37 +196,11 @@
     <string>X:</string>
    </property>
   </widget>
-  <widget class="Line" name="line_2">
-   <property name="geometry">
-    <rect>
-     <x>240</x>
-     <y>30</y>
-     <width>20</width>
-     <height>261</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Vertical</enum>
-   </property>
-  </widget>
-  <widget class="Line" name="line_3">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>140</y>
-     <width>511</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_8">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>110</y>
+     <x>320</x>
+     <y>120</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -239,8 +213,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>160</y>
-     <width>21</width>
+     <y>170</y>
+     <width>41</width>
      <height>16</height>
     </rect>
    </property>
@@ -252,7 +226,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>160</y>
+     <y>170</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -265,7 +239,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>190</y>
+     <y>200</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -277,8 +251,8 @@
   <widget class="QLabel" name="label_12">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>190</y>
+     <x>320</x>
+     <y>200</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -290,9 +264,9 @@
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>260</x>
-     <y>160</y>
-     <width>21</width>
+     <x>280</x>
+     <y>170</y>
+     <width>31</width>
      <height>16</height>
     </rect>
    </property>
@@ -303,8 +277,8 @@
   <widget class="QLabel" name="label_14">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>160</y>
+     <x>320</x>
+     <y>170</y>
      <width>21</width>
      <height>16</height>
     </rect>
@@ -317,7 +291,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>160</y>
+     <y>170</y>
      <width>171</width>
      <height>22</height>
     </rect>
@@ -327,7 +301,7 @@
    <property name="geometry">
     <rect>
      <x>70</x>
-     <y>190</y>
+     <y>200</y>
      <width>171</width>
      <height>22</height>
     </rect>
@@ -336,8 +310,8 @@
   <widget class="QLineEdit" name="coor_SEX">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>160</y>
+     <x>340</x>
+     <y>170</y>
      <width>171</width>
      <height>22</height>
     </rect>
@@ -346,8 +320,8 @@
   <widget class="QLineEdit" name="coor_SEY">
    <property name="geometry">
     <rect>
-     <x>320</x>
-     <y>190</y>
+     <x>340</x>
+     <y>200</y>
      <width>171</width>
      <height>22</height>
     </rect>
