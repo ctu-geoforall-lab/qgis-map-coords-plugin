@@ -141,7 +141,7 @@ class Map_Corners_Coordinates():
             text=self.tr(u'Map Corners Coordinates'),
             callback=self.run,
             parent=self.iface.mainWindow())
-
+     
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Map_Corners_Coordinates</string>
+   <string>Map Corners Coordinates</string>
   </property>
   <widget class="QDialogButtonBox" name="button_box">
    <property name="geometry">
