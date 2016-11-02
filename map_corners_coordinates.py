@@ -185,10 +185,16 @@ class Map_Corners_Coordinates():
         self.dlg.coor_SWX.clear()
         self.dlg.coor_SWY.clear()
 
-        self.dlg.system_box.clear()
-        self.dlg.system_box.addItems(['WGS84','S-JTSK'])
 
-#        self.dlg.lineEdit.clear()
+        
+        canvas = self.iface.mapCanvas()
+        mapRenderer = canvas.mapRenderer()
+        srs=mapRenderer.destinationCrs()
+        current_system = str(srs.authid())
+        
+        self.dlg.system_box.clear()
+        self.dlg.system_box.addItems([current_system])
+
         
 
 
