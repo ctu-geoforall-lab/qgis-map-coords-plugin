@@ -45,11 +45,8 @@ class Map_Corners_Coordinates():
             application at run time.
         :type iface: QgsInterface
         """
-#        QgsMapTool.__init__(self, iface.mapCanvas())
-        # Save reference to the QGIS interface
-
-        
-        
+      
+        # Save reference to the QGIS interface        
         self.iface = iface
         
 
@@ -112,6 +109,9 @@ class Map_Corners_Coordinates():
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
+        
+        self.toolButton.setDefaultAction(action)        
+        
         action.triggered.connect(callback)
         action.setEnabled(enabled_flag)
 
@@ -122,7 +122,8 @@ class Map_Corners_Coordinates():
             action.setWhatsThis(whats_this)
 
         if add_to_toolbar:
-            self.toolbar.addAction(action)
+            pass            
+            #self.toolbar.addAction(action)
 
         if add_to_menu:
             self.iface.addPluginToMenu(
