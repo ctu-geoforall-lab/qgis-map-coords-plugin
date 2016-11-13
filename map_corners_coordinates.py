@@ -27,6 +27,7 @@ from qgis.core import *
 
 # Initialize Qt resources from file resources.py
 import resources
+import os
     
 #import corners_tool
 # Import the code for the dialog
@@ -170,6 +171,14 @@ class Map_Corners_Coordinates():
         self.dlg.coor_SWX.setText(str(e.xMinimum()))
         self.dlg.coor_SWY.setText(str(e.yMinimum()))
         
+        #save to txt
+        text = self.dlg.coor_NEX.text()
+        
+        
+      #  text = dlg.ui.coor_NEX.text()
+        f = open("file.txt", 'w')
+        print >>f, text
+        f.close()
         
 #        self.mapTool = RectangleMapTool(self.iface.mapCanvas())  
 
