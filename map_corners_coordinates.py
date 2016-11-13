@@ -85,6 +85,9 @@ class Map_Corners_Coordinates():
         # add plugin icon into plugin toolbar
         self.toolButton = QToolButton()
         self.iface.addToolBarWidget(self.toolButton)
+        
+        #save        
+        self.dlg.dir_toolbutton.clicked.connect(self.dir_button)
 
    
 
@@ -172,7 +175,9 @@ class Map_Corners_Coordinates():
 
 #        self.iface.mapCanvas().setMapTool(self.mapTool)   
 
-
+    def dir_button(self):
+        self.dirname = QFileDialog.getExistingDirectory(self.dlg, "Select directory ","/home")
+        self.dlg.dir_name.setText(self.dirname)
     
     def run(self):
         
@@ -184,6 +189,8 @@ class Map_Corners_Coordinates():
         self.dlg.coor_SEY.clear()
         self.dlg.coor_SWX.clear()
         self.dlg.coor_SWY.clear()
+        
+        self.dlg.dir_name.clear()
 
 
         
@@ -195,7 +202,7 @@ class Map_Corners_Coordinates():
         self.dlg.system_box.clear()
         self.dlg.system_box.addItems([current_system])
 
-        
+
 
 
         """Run method that performs all the real work"""
