@@ -24,9 +24,12 @@ from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.gui import *
 from qgis.core import *
+from qgis.utils import *
+
 
 # Initialize Qt resources from file resources.py
 import resources
+import os
     
 #import corners_tool
 # Import the code for the dialog
@@ -85,6 +88,9 @@ class Map_Corners_Coordinates():
         # add plugin icon into plugin toolbar
         self.toolButton = QToolButton()
         self.iface.addToolBarWidget(self.toolButton)
+        
+        #save        
+        self.dlg.dir_toolbutton.clicked.connect(self.dir_button)
 
    
 
@@ -154,6 +160,10 @@ class Map_Corners_Coordinates():
         del self.toolbar
     
 
+    def dir_button(self):
+        self.namedir = QFileDialog.getExistingDirectory(self.dlg, "Select directory")
+        self.dlg.dir_name.setText(self.namedir)
+
 
     def read_coor(self):
         e = self.iface.mapCanvas().extent()
@@ -167,6 +177,36 @@ class Map_Corners_Coordinates():
         self.dlg.coor_SWX.setText(str(e.xMinimum()))
         self.dlg.coor_SWY.setText(str(e.yMinimum()))
         
+        
+                
+                
+        canvas = self.iface.mapCanvas()
+        mapRenderer = canvas.mapRenderer()
+        srs=mapRenderer.destinationCrs()
+        current_system = srs.authid()
+        
+        
+ #       new_crs = QgsCoordinateReferenceSystem(4209)
+ #       transform = QgsCoordinateTransform(current_system, new_crs)
+ #       transform_points = transform.transform(QgsPoint(27.04892, -13.30552))        
+        
+        
+        #save to txt
+        text_NEX = self.dlg.coor_NEX.text()
+        text_NEY = self.dlg.coor_NEY.text()        
+        text_NWX = self.dlg.coor_NWX.text()
+        text_NWY = self.dlg.coor_NWY.text()
+        text_SEX = self.dlg.coor_SEX.text()
+        text_SEY = self.dlg.coor_SEY.text()
+        text_SWX = self.dlg.coor_SWX.text()
+        text_SWY = self.dlg.coor_SWY.text()
+
+
+  #      sel_dir = self.namedir + "/Map_Corners_Coordinates.txt"
+        f = open("Map_Corners_Coordinates", 'w')
+        print >>f, "Map Corners Coordinates\n-------------------------------------------\nCRS:",current_system,"\n-------------------------------------------"
+        print >>f, "NW: X:",text_NWX,"  NE: X:",text_NEX,"\n","    Y:",text_NWY,"      Y:",text_NEY,"\nSW: X:",text_SWX,"  SE: X:",text_SEX,"\n","    Y:",text_SWY,"      Y:",text_SEY 
+        f.close()
         
 #        self.mapTool = RectangleMapTool(self.iface.mapCanvas())  
 
@@ -184,6 +224,8 @@ class Map_Corners_Coordinates():
         self.dlg.coor_SEY.clear()
         self.dlg.coor_SWX.clear()
         self.dlg.coor_SWY.clear()
+        
+        self.dlg.dir_name.clear()
 
 
         
@@ -193,9 +235,9 @@ class Map_Corners_Coordinates():
         current_system = str(srs.authid())
         
         self.dlg.system_box.clear()
-        self.dlg.system_box.addItems([current_system])
-
+        self.dlg.system_box.addItems([current_system,"EPSG:4326"])
         
+
 
 
         """Run method that performs all the real work"""
