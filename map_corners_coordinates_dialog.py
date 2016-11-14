@@ -29,10 +29,10 @@ FORM_CLASS, _ = uic.loadUiType(os.path.join(
     os.path.dirname(__file__), 'map_corners_coordinates_dialog_base.ui'))
 
 
-class Map_Corners_CoordinatesDialog(QtGui.QDialog, FORM_CLASS):
+class MapCornersCoordinatesDialog(QtGui.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
-        super(Map_Corners_CoordinatesDialog, self).__init__(parent)
+        super(MapCornersCoordinatesDialog, self).__init__(parent)
         # Set up the user interface from Designer.
         # After setupUI you can access any designer object by doing
         # self.<objectname>, and you can use autoconnect slots - see

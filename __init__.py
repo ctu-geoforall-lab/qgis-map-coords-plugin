@@ -31,5 +31,5 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :type iface: QgsInterface
     """
     #
-    from .map_corners_coordinates import Map_Corners_Coordinates
-    return Map_Corners_Coordinates(iface)
+    from .map_corners_coordinates import MapCornersCoordinates
+    return MapCornersCoordinates(iface)

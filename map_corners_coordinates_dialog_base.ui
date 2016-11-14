@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>515</width>
+    <width>608</width>
     <height>238</height>
    </rect>
   </property>
@@ -40,7 +40,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="captureButton">
        <property name="text">
         <string>Capture!</string>
        </property>
@@ -67,6 +67,13 @@
       <widget class="Line" name="line">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="5">
+      <widget class="QPushButton" name="saveButton">
+       <property name="text">
+        <string>Save</string>
        </property>
       </widget>
      </item>
@@ -196,12 +203,6 @@
    </item>
   </layout>
   <zorder></zorder>
-  <zorder>pushButton</zorder>
-  <zorder>button_box</zorder>
-  <zorder>button_box</zorder>
-  <zorder>toolButton</zorder>
-  <zorder>dir_toolbutton</zorder>
-  <zorder>dir_name</zorder>
  </widget>
  <resources/>
  <connections>

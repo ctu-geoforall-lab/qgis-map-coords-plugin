@@ -20,6 +20,7 @@
  *                                                                         *
  ***************************************************************************/
 """
+# TODO: replace '* by list of items
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 from qgis.gui import *
@@ -33,11 +34,11 @@ import os
     
 #import corners_tool
 # Import the code for the dialog
-from map_corners_coordinates_dialog import Map_Corners_CoordinatesDialog
+from map_corners_coordinates_dialog import MapCornersCoordinatesDialog
 import os.path
+# from os.path import dirname, ...
 
-
-class Map_Corners_Coordinates():
+class MapCornersCoordinates():
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
@@ -48,15 +49,11 @@ class Map_Corners_Coordinates():
             application at run time.
         :type iface: QgsInterface
         """
-      
         # Save reference to the QGIS interface        
         self.iface = iface
-        
 
         self.canvas=iface.mapCanvas()
 
-       
-        
         # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
@@ -74,31 +71,28 @@ class Map_Corners_Coordinates():
                 QCoreApplication.installTranslator(self.translator)
 
         # Create the dialog (after translation) and keep reference
-        self.dlg = Map_Corners_CoordinatesDialog()
+        self.dlg = MapCornersCoordinatesDialog()
 
         # Declare instance attributes
         self.actions = []
-        self.menu = self.tr(u'&Map_Corners_Coordinates')
+        self.menu = self.tr(u'&Map Corners Coordinates')
         # TODO: We are going to let the user set this up in a future iteration
-        self.toolbar = self.iface.addToolBar(u'Map_Corners_Coordinates')
-        self.toolbar.setObjectName(u'Map_Corners_Coordinates')
+        self.toolbar = self.iface.addToolBar(self.tr(u'Map Corners Coordinates'))
+        self.toolbar.setObjectName('MapCornersCoordinates')
 
-        self.dlg.pushButton.clicked.connect(self.read_coor)        
+        self.dlg.captureButton.clicked.connect(self.readCoor)
+        self.dlg.saveButton.clicked.connect(self.saveCoor)
         
         # add plugin icon into plugin toolbar
         self.toolButton = QToolButton()
         self.iface.addToolBarWidget(self.toolButton)
         
         #save        
-        self.dlg.dir_toolbutton.clicked.connect(self.dir_button)
-
-   
+        self.dlg.dir_toolbutton.clicked.connect(self.dirButton)
 
     def tr(self, message):
-
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('Map_Corners_Coordinates', message)
-
 
     def add_action(
         self,
@@ -111,7 +105,6 @@ class Map_Corners_Coordinates():
         status_tip=None,
         whats_this=None,
         parent=None):
-
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
@@ -160,12 +153,16 @@ class Map_Corners_Coordinates():
         del self.toolbar
     
 
-    def dir_button(self):
-        self.namedir = QFileDialog.getExistingDirectory(self.dlg, "Select directory")
+    def dirButton(self):
+        """TODO.
+        """
+        self.namedir = QFileDialog.getSaveFileName(self.dlg, self.tr(u"Select destination file"))
         self.dlg.dir_name.setText(self.namedir)
 
-
-    def read_coor(self):
+    def readCoor(self):
+        """TODO.
+        """
+        # get map canvas extent (W, E, N, S)
         e = self.iface.mapCanvas().extent()
         
         self.dlg.coor_NEX.setText(str(e.xMaximum()))
@@ -176,56 +173,60 @@ class Map_Corners_Coordinates():
         self.dlg.coor_SEY.setText(str(e.yMinimum()))
         self.dlg.coor_SWX.setText(str(e.xMinimum()))
         self.dlg.coor_SWY.setText(str(e.yMinimum()))
+
+    def saveCoor(self):
+        """TODO.
+        """
+        fileName = self.dlg.dir_name.text()
+        if not fileName:
+            self.iface.messageBar().pushMessage(self.tr(u"Error"),
+                                                self.tr(u"No file given."),
+                                                level=QgsMessageBar.CRITICAL)
+            return
         
-        #save to txt
-        text = self.dlg.coor_NEX.text()
+        try:
+            f = open(fileName, 'w')
+        except IOError as e:
+            self.iface.messageBar().pushMessage("Error",
+                                                "Unable open {} for writing. Reason: {}".format(fileName, e),
+                                                level=QgsMessageBar.CRITICAL)
+            return
         
+        crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
         
-      #  text = dlg.ui.coor_NEX.text()
-        f = open("file.txt", 'w')
-        print >>f, text
+        #       new_crs = QgsCoordinateReferenceSystem(4209)
+        #       transform = QgsCoordinateTransform(current_system, new_crs)
+        #       transform_points = transform.transform(QgsPoint(27.04892, -13.30552))        
+        
+        f.write('''{title}
+CRS: {crs}
+NW (X): {nw_x}
+NW (Y): {nw_y}
+NE (X): {ne_x}
+NE (Y): {ne_y}
+SE (X): {se_x}
+SE (Y): {se_y}
+SW (X): {sw_x}
+SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
+                             crs=crs.authid(),
+                             nw_x=self.dlg.coor_NWX.text(),
+                             nw_y=self.dlg.coor_NWY.text(),
+                             ne_x=self.dlg.coor_NEX.text(),
+                             ne_y=self.dlg.coor_NEY.text(),
+                             se_x=self.dlg.coor_SEX.text(),
+                             se_y=self.dlg.coor_SEY.text(),
+                             sw_x=self.dlg.coor_SWX.text(),
+                             sw_y=self.dlg.coor_SWY.text(),
+                             ls=os.linesep))
+              
         f.close()
-        
-                
-                
-        canvas = self.iface.mapCanvas()
-        mapRenderer = canvas.mapRenderer()
-        srs=mapRenderer.destinationCrs()
-        current_system = srs.authid()
-        
-        
- #       new_crs = QgsCoordinateReferenceSystem(4209)
- #       transform = QgsCoordinateTransform(current_system, new_crs)
- #       transform_points = transform.transform(QgsPoint(27.04892, -13.30552))        
-        
-        
-        #save to txt
-        text_NEX = self.dlg.coor_NEX.text()
-        text_NEY = self.dlg.coor_NEY.text()        
-        text_NWX = self.dlg.coor_NWX.text()
-        text_NWY = self.dlg.coor_NWY.text()
-        text_SEX = self.dlg.coor_SEX.text()
-        text_SEY = self.dlg.coor_SEY.text()
-        text_SWX = self.dlg.coor_SWX.text()
-        text_SWY = self.dlg.coor_SWY.text()
+        self.iface.messageBar().pushMessage("Info",
+                                            "File {} saved.".format(fileName),
+                                            level=QgsMessageBar.INFO)
 
-
-  #      sel_dir = self.namedir + "/Map_Corners_Coordinates.txt"
-        f = open("Map_Corners_Coordinates", 'w')
-        print >>f, "Map Corners Coordinates\n-------------------------------------------\nCRS:",current_system,"\n-------------------------------------------"
-        print >>f, "NW: X:",text_NWX,"  NE: X:",text_NEX,"\n","    Y:",text_NWY,"      Y:",text_NEY,"\nSW: X:",text_SWX,"  SE: X:",text_SEX,"\n","    Y:",text_SWY,"      Y:",text_SEY 
-        f.close()
-        
-#        self.mapTool = RectangleMapTool(self.iface.mapCanvas())  
-
-#        self.iface.mapCanvas().setMapTool(self.mapTool)   
-
-    def dir_button(self):
-        self.dirname = QFileDialog.getExistingDirectory(self.dlg, "Select directory ")
-        self.dlg.dir_name.setText(self.dirname)
-    
     def run(self):
-        
+        """TODO.
+        """
         self.dlg.coor_NEX.clear()
         self.dlg.coor_NEY.clear()
         self.dlg.coor_NWX.clear()
@@ -236,35 +237,20 @@ class Map_Corners_Coordinates():
         self.dlg.coor_SWY.clear()
         
         self.dlg.dir_name.clear()
-
-
         
-        canvas = self.iface.mapCanvas()
-        mapRenderer = canvas.mapRenderer()
-        srs=mapRenderer.destinationCrs()
-        current_system = str(srs.authid())
+        crs=self.iface.mapCanvas().mapRenderer().destinationCrs()
         
         self.dlg.system_box.clear()
-        self.dlg.system_box.addItems([current_system,"EPSG:4326"])
-        
-        self.dlg.system_box.addItems([current_system])
+        self.dlg.system_box.addItems([str(crs.authid()),"EPSG:4326"])
 
-
-
-
-
-        """Run method that performs all the real work"""
         # show the dialog
         self.dlg.show()
+
         # Run the dialog event loop
         result = self.dlg.exec_()
-        
-        
-        
         
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
             pass
-#
