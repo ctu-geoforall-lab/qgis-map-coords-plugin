@@ -177,6 +177,14 @@ class Map_Corners_Coordinates():
         self.dlg.coor_SWX.setText(str(e.xMinimum()))
         self.dlg.coor_SWY.setText(str(e.yMinimum()))
         
+        #save to txt
+        text = self.dlg.coor_NEX.text()
+        
+        
+      #  text = dlg.ui.coor_NEX.text()
+        f = open("file.txt", 'w')
+        print >>f, text
+        f.close()
         
                 
                 
@@ -212,7 +220,9 @@ class Map_Corners_Coordinates():
 
 #        self.iface.mapCanvas().setMapTool(self.mapTool)   
 
-
+    def dir_button(self):
+        self.dirname = QFileDialog.getExistingDirectory(self.dlg, "Select directory ")
+        self.dlg.dir_name.setText(self.dirname)
     
     def run(self):
         
@@ -237,6 +247,9 @@ class Map_Corners_Coordinates():
         self.dlg.system_box.clear()
         self.dlg.system_box.addItems([current_system,"EPSG:4326"])
         
+        self.dlg.system_box.addItems([current_system])
+
+
 
 
 
