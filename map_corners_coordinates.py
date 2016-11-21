@@ -216,7 +216,6 @@ class MapCornersCoordinates():
             crs = self.iface.mapCanvas().mapSettings().destinationCrs()
         except:
             crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
-            pass
             
         f.write('''{title}
 CRS: {crs}
@@ -262,7 +261,6 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
             crs = self.iface.mapCanvas().mapSettings().destinationCrs()
         except:
             crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
-            pass
         
         self.dlg.system_box.clear()
         self.dlg.system_box.addItems([str(crs.authid()),"EPSG:4326"])
