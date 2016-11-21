@@ -20,12 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 """
-# TODO: replace '* by list of items
-from PyQt4.QtCore import *
-from PyQt4.QtGui import *
-from qgis.gui import *
-from qgis.core import *
-from qgis.utils import *
+from PyQt4.QtCore import QSettings
+from PyQt4.QtGui import QComboBox, QToolButton, QIcon, QAction, QFileDialog
+#from qgis.gui import 
+from qgis.core import QCoreApplication
+from qgis.utils import QgsMessageBar 
 
 
 # Initialize Qt resources from file resources.py
