@@ -263,7 +263,8 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
 
         # Run the dialog event loop
         result = self.dlg.exec_()
-        
+        self.dlg.saveButton.setEnabled(False)        
+
         # See if OK was pressed
         if result:
             # Do something useful here - delete the line containing pass and
