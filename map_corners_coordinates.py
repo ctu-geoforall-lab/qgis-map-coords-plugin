@@ -212,7 +212,12 @@ class MapCornersCoordinates():
         #       transform = QgsCoordinateTransform(current_system, new_crs)
         #       transform_points = transform.transform(QgsPoint(27.04892, -13.30552)) 
         
-        crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+        try:
+            crs = self.iface.mapCanvas().mapSettings().destinationCrs()
+        except:
+            crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+            pass
+            
         f.write('''{title}
 CRS: {crs}
 NW (X): {nw_x}
@@ -253,7 +258,11 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
         
         self.dlg.dir_name.clear()
         
-        crs=self.iface.mapCanvas().mapRenderer().destinationCrs()
+        try:
+            crs = self.iface.mapCanvas().mapSettings().destinationCrs()
+        except:
+            crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+            pass
         
         self.dlg.system_box.clear()
         self.dlg.system_box.addItems([str(crs.authid()),"EPSG:4326"])
