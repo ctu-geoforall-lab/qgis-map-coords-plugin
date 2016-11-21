@@ -20,11 +20,11 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings
+from PyQt4.QtCore import QSettings, QTranslator 
 from PyQt4.QtGui import QComboBox, QToolButton, QIcon, QAction, QFileDialog
-#from qgis.gui import 
+from qgis.gui import qVersion
 from qgis.core import QCoreApplication
-from qgis.utils import QgsMessageBar 
+from qgis.utils import QgsMessageBar
 
 
 # Initialize Qt resources from file resources.py
@@ -192,6 +192,11 @@ class MapCornersCoordinates():
             return
         
         crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+	
+	
+	if not self.dlg.coor_NWX.text():
+	    self.iface.messageBar().pushMessage()        
+	
         
         #       new_crs = QgsCoordinateReferenceSystem(4209)
         #       transform = QgsCoordinateTransform(current_system, new_crs)
