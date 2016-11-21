@@ -20,9 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings, QTranslator 
+from PyQt4.QtCore import QSettings, QTranslator, qVersion
 from PyQt4.QtGui import QComboBox, QToolButton, QIcon, QAction, QFileDialog
-from qgis.gui import qVersion
+# from qgis.gui import *
 from qgis.core import QCoreApplication
 from qgis.utils import QgsMessageBar
 
@@ -79,6 +79,8 @@ class MapCornersCoordinates():
         self.toolbar = self.iface.addToolBar(self.tr(u'Map Corners Coordinates'))
         self.toolbar.setObjectName('MapCornersCoordinates')
 
+
+        self.dlg.saveButton.setEnabled(False)        
         self.dlg.captureButton.clicked.connect(self.readCoor)
         self.dlg.saveButton.clicked.connect(self.saveCoor)
         
@@ -161,7 +163,11 @@ class MapCornersCoordinates():
     def readCoor(self):
         """TODO.
         """
+        
+        self.dlg.saveButton.setEnabled(True)        
+
         # get map canvas extent (W, E, N, S)
+           
         e = self.iface.mapCanvas().extent()
         
         self.dlg.coor_NEX.setText(str(e.xMaximum()))
@@ -180,7 +186,7 @@ class MapCornersCoordinates():
         if not fileName:
             self.iface.messageBar().pushMessage(self.tr(u"Error"),
                                                 self.tr(u"No file given."),
-                                                level=QgsMessageBar.CRITICAL)
+                                                level=QgsMessageBar.CRITICAL, duration = 3)
             return
         
         try:
@@ -188,20 +194,25 @@ class MapCornersCoordinates():
         except IOError as e:
             self.iface.messageBar().pushMessage("Error",
                                                 "Unable open {} for writing. Reason: {}".format(fileName, e),
-                                                level=QgsMessageBar.CRITICAL)
+                                                level=QgsMessageBar.CRITICAL, duration = 3)
             return
         
-        crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+        
 	
 	
-	if not self.dlg.coor_NWX.text():
-	    self.iface.messageBar().pushMessage()        
+        """if not self.dlg.coor_NWX.text():
+            self.iface.messageBar().pushMessage(self.tr(u"Error"),
+                                                self.tr(u"No coordinates captured."),
+                                                level=QgsMessageBar.CRITICAL, duration = 3)
+            return
+        """
 	
         
         #       new_crs = QgsCoordinateReferenceSystem(4209)
         #       transform = QgsCoordinateTransform(current_system, new_crs)
-        #       transform_points = transform.transform(QgsPoint(27.04892, -13.30552))        
+        #       transform_points = transform.transform(QgsPoint(27.04892, -13.30552)) 
         
+        crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
         f.write('''{title}
 CRS: {crs}
 NW (X): {nw_x}
@@ -226,7 +237,7 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
         f.close()
         self.iface.messageBar().pushMessage("Info",
                                             "File {} saved.".format(fileName),
-                                            level=QgsMessageBar.INFO)
+                                            level=QgsMessageBar.INFO, duration = 3)
 
     def run(self):
         """TODO.
