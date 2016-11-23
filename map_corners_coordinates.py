@@ -159,12 +159,13 @@ class MapCornersCoordinates():
         """
         self.namedir = QFileDialog.getSaveFileName(self.dlg, self.tr(u"Select destination file"))
         self.dlg.dir_name.setText(self.namedir)
+        self.dlg.saveButton.setEnabled(True)        
 
+    
     def readCoor(self):
         """TODO.
         """
         
-        self.dlg.saveButton.setEnabled(True)        
 
         # get map canvas extent (W, E, N, S)
            
@@ -200,18 +201,13 @@ class MapCornersCoordinates():
         
 	
 	
-        """if not self.dlg.coor_NWX.text():
+        if not self.dlg.coor_NWX.text():
             self.iface.messageBar().pushMessage(self.tr(u"Error"),
                                                 self.tr(u"No coordinates captured."),
                                                 level=QgsMessageBar.CRITICAL, duration = 3)
             return
-        """
-	
-        
-        #       new_crs = QgsCoordinateReferenceSystem(4209)
-        #       transform = QgsCoordinateTransform(current_system, new_crs)
-        #       transform_points = transform.transform(QgsPoint(27.04892, -13.30552)) 
-        
+        	
+
         try:
             crs = self.iface.mapCanvas().mapSettings().destinationCrs()
         except:
@@ -226,7 +222,7 @@ NE (Y): {ne_y}
 SE (X): {se_x}
 SE (Y): {se_y}
 SW (X): {sw_x}
-SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
+SW (Y): {sw_y}{ls}{ls}'''.format(title='Map Corners Coordinates',
                              crs=crs.authid(),
                              nw_x=self.dlg.coor_NWX.text(),
                              nw_y=self.dlg.coor_NWY.text(),
