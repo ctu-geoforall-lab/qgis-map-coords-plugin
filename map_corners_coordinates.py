@@ -23,7 +23,7 @@
 from PyQt4.QtCore import QSettings, QTranslator, qVersion
 from PyQt4.QtGui import QComboBox, QToolButton, QIcon, QAction, QFileDialog
 # from qgis.gui import *
-from qgis.core import QCoreApplication
+from qgis.core import QCoreApplication, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 from qgis.utils import QgsMessageBar
 
 
@@ -165,12 +165,16 @@ class MapCornersCoordinates():
     def readCoor(self):
         """TODO.
         """
-        
-
-        # get map canvas extent (W, E, N, S)
+        #get map canvas extent (W, E, N, S)
            
         e = self.iface.mapCanvas().extent()
         
+        if self.dlg.system_box.currentText() == "EPSG:4326" and self.crs.authid() <> "EPSG:4326":
+            crsSrc = QgsCoordinateReferenceSystem(str(self.crs.authid()))
+            crsDest = QgsCoordinateReferenceSystem("EPSG:4326")
+            tr = QgsCoordinateTransform(crsSrc,crsDest)
+            e = tr.transform(e)
+                                            
         self.dlg.coor_NEX.setText(str(e.xMaximum()))
         self.dlg.coor_NEY.setText(str(e.yMaximum()))
         self.dlg.coor_NWX.setText(str(e.xMinimum()))
@@ -206,13 +210,7 @@ class MapCornersCoordinates():
                                                 self.tr(u"No coordinates captured."),
                                                 level=QgsMessageBar.CRITICAL, duration = 3)
             return
-        	
-
-        try:
-            crs = self.iface.mapCanvas().mapSettings().destinationCrs()
-        except:
-            crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
-            
+          
         f.write('''{title}
 CRS: {crs}
 NW (X): {nw_x}
@@ -222,8 +220,8 @@ NE (Y): {ne_y}
 SE (X): {se_x}
 SE (Y): {se_y}
 SW (X): {sw_x}
-SW (Y): {sw_y}{ls}{ls}'''.format(title='Map Corners Coordinates',
-                             crs=crs.authid(),
+SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
+                             crs=self.dlg.system_box.currentText(),
                              nw_x=self.dlg.coor_NWX.text(),
                              nw_y=self.dlg.coor_NWY.text(),
                              ne_x=self.dlg.coor_NEX.text(),
@@ -254,13 +252,15 @@ SW (Y): {sw_y}{ls}{ls}'''.format(title='Map Corners Coordinates',
         self.dlg.dir_name.clear()
         
         try:
-            crs = self.iface.mapCanvas().mapSettings().destinationCrs()
+            self.crs = self.iface.mapCanvas().mapSettings().destinationCrs()
         except:
-            crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+            self.crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
         
         self.dlg.system_box.clear()
-        self.dlg.system_box.addItems([str(crs.authid()),"EPSG:4326"])
-
+        if self.crs.authid() == "EPSG:4326":
+            self.dlg.system_box.addItems([str(self.crs.authid())])
+        else:
+            self.dlg.system_box.addItems([str(self.crs.authid()),"EPSG:4326"])
         # show the dialog
         self.dlg.show()
 
