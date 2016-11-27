@@ -43,16 +43,18 @@ class MapCornersCoordinates():
 
     def __init__(self, iface):
         
-      """Constructor.
+        """Constructor.
 
         :param iface: An interface instance that will be passed to this class
             which provides the hook by which you can manipulate the QGIS
             application at run time.
-        :type iface: QgsInterface
+        :type iface: QgsInterface 
         """
+
+
         # Save reference to the QGIS interface        
         self.iface = iface
-
+        
         self.canvas=iface.mapCanvas()
 
         # initialize plugin directory
@@ -217,7 +219,7 @@ class MapCornersCoordinates():
 
         for action in self.actions:
             self.iface.removePluginMenu(
-                self.tr(u'&Map Corners Coordinates'),
+                self.tr(u'&Map_Corners_Coordinates'),
                 action)
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
