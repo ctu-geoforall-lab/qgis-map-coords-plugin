@@ -32,7 +32,7 @@ import resources
 import os
     
 #import corners_tool
-# Import the code for the dialog
+# Import the code for the DockWidget
 from map_corners_coordinates_dialog import MapCornersCoordinatesDialog
 import os.path
 # from os.path import dirname, ...
@@ -92,8 +92,6 @@ class MapCornersCoordinates():
         # add plugin icon into plugin toolbar
         self.toolButton = QToolButton()
         self.iface.addToolBarWidget(self.toolButton)
-        
-        #save        
         self.dlg.dir_toolbutton.clicked.connect(self.dirButton)
 
     def tr(self, message):
@@ -174,8 +172,8 @@ class MapCornersCoordinates():
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
-        
-        self.toolButton.setDefaultAction(action)        
+
+        self.toolButton.setDefaultAction(action)
         
         action.triggered.connect(callback)
         action.setEnabled(enabled_flag)
@@ -227,7 +225,7 @@ class MapCornersCoordinates():
 
     def dirButton(self):
         
-        """Gets the destination file, where captured coords are saved."""
+        """Gets the destination file, where captured coordinates are saved."""
         
         self.namedir = QFileDialog.getSaveFileName(self.dlg, self.tr(u"Select destination file"))
         self.dlg.dir_name.setText(self.namedir)
@@ -237,14 +235,14 @@ class MapCornersCoordinates():
 
     def readCoor(self):
         
-        """Gets map canvas coords, writes them to corresponding widgets. 
-           Transforms coords to EPSG:4326."""
+        """Gets map canvas coordinates, writes them to corresponding widgets.
+           Transforms coordinates to EPSG:4326."""
         
         # Get map canvas extent (W, E, N, S)
         e = self.iface.mapCanvas().extent()
         
         # Transform the actual crs to EPSG:4326 if the actual crs is not EPSG:4326 itself 
-        if self.dlg.system_box.currentText() == "EPSG:4326" and self.crs.authid() <> "EPSG:4326":
+        if self.dlg.system_box.currentText() == "EPSG:4326" and self.crs.authid() != "EPSG:4326":
             crsSrc = QgsCoordinateReferenceSystem(str(self.crs.authid()))
             crsDest = QgsCoordinateReferenceSystem("EPSG:4326")
             tr = QgsCoordinateTransform(crsSrc,crsDest)
@@ -261,7 +259,7 @@ class MapCornersCoordinates():
 
     def saveCoor(self):
         
-        """Saves coords to file."""
+        """Saves coordinates to file."""
         
         fileName = self.dlg.dir_name.text()
         if not fileName:
@@ -338,10 +336,10 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
         else:
             self.dlg.system_box.addItems([str(self.crs.authid()),"EPSG:4326"])
 
-        # dock dialog to the area on the left side
+        # dock widget to the area on the left side
         self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dlg)
 
-        # show the dialog
+        # show the DockWidget
         self.dlg.show()
 
         # Disable saveButton for future plugin reopening
