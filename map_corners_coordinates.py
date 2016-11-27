@@ -20,7 +20,7 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings, QTranslator, qVersion
+from PyQt4.QtCore import QSettings, QTranslator, qVersion, Qt
 from PyQt4.QtGui import QComboBox, QToolButton, QIcon, QAction, QFileDialog
 # from qgis.gui import *
 from qgis.core import QCoreApplication, QgsCoordinateTransform, QgsCoordinateReferenceSystem
@@ -69,8 +69,8 @@ class MapCornersCoordinates():
             if qVersion() > '4.3.3':
                 QCoreApplication.installTranslator(self.translator)
 
-        # Create the dialog (after translation) and keep reference
-        self.dlg = MapCornersCoordinatesDialog()
+        # Create the QDockWidget (after translation) and keep reference
+        self.dlg = MapCornersCoordinatesDialog(self.iface.mainWindow())
 
         # Declare instance attributes
         self.actions = []
@@ -78,7 +78,6 @@ class MapCornersCoordinates():
         # TODO: We are going to let the user set this up in a future iteration
         self.toolbar = self.iface.addToolBar(self.tr(u'Map Corners Coordinates'))
         self.toolbar.setObjectName('MapCornersCoordinates')
-
 
         self.dlg.saveButton.setEnabled(False)        
         self.dlg.captureButton.clicked.connect(self.readCoor)
@@ -142,8 +141,18 @@ class MapCornersCoordinates():
             text=self.tr(u'Map Corners Coordinates'),
             callback=self.run,
             parent=self.iface.mainWindow())
+
+#        self.action.triggered.connect(self.run)
+#        # Create the docked panel
+        #print "self.iface.mainWindow = %s" % self.iface.mainWindow()
+#        self.dockWidget = MapCornersCoordinatesDialog(self.iface.mainWindow())
+#        self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dlg)
      
     def unload(self):
+#        # debug( "LrsPlugin.unload" )
+        self.dlg.close()
+        self.iface.removeDockWidget(self.dlg)
+
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginMenu(
@@ -152,7 +161,6 @@ class MapCornersCoordinates():
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
         del self.toolbar
-    
 
     def dirButton(self):
         """TODO.
@@ -161,7 +169,6 @@ class MapCornersCoordinates():
         self.dlg.dir_name.setText(self.namedir)
         self.dlg.saveButton.setEnabled(True)        
 
-    
     def readCoor(self):
         """TODO.
         """
@@ -201,10 +208,7 @@ class MapCornersCoordinates():
                                                 "Unable open {} for writing. Reason: {}".format(fileName, e),
                                                 level=QgsMessageBar.CRITICAL, duration = 3)
             return
-        
-        
-	
-	
+
         if not self.dlg.coor_NWX.text():
             self.iface.messageBar().pushMessage(self.tr(u"Error"),
                                                 self.tr(u"No coordinates captured."),
@@ -261,15 +265,19 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
             self.dlg.system_box.addItems([str(self.crs.authid())])
         else:
             self.dlg.system_box.addItems([str(self.crs.authid()),"EPSG:4326"])
+
+        # dock dialog to the area on the left side
+        self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dlg)
+
         # show the dialog
         self.dlg.show()
 
         # Run the dialog event loop
-        result = self.dlg.exec_()
-        self.dlg.saveButton.setEnabled(False)        
+#        result = self.dlg.exec_()
+        self.dlg.saveButton.setEnabled(False)
 
         # See if OK was pressed
-        if result:
+ #       if result:
             # Do something useful here - delete the line containing pass and
             # substitute with your code.
-            pass
+  #          pass
