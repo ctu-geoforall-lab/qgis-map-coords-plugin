@@ -74,7 +74,11 @@
     <item row="1" column="0">
      <layout class="QGridLayout" name="gridLayout">
       <item row="3" column="2">
-       <widget class="QLineEdit" name="coor_SWY"/>
+       <widget class="QLineEdit" name="coor_SWY">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="3" column="1">
        <widget class="QLabel" name="label_11">
@@ -105,10 +109,18 @@
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QLineEdit" name="coor_NWX"/>
+       <widget class="QLineEdit" name="coor_NWX">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QLineEdit" name="coor_SWX"/>
+       <widget class="QLineEdit" name="coor_SWX">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_9">
@@ -118,7 +130,11 @@
        </widget>
       </item>
       <item row="3" column="5">
-       <widget class="QLineEdit" name="coor_SEY"/>
+       <widget class="QLineEdit" name="coor_SEY">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="2" column="1">
        <widget class="QLabel" name="label_10">
@@ -135,7 +151,11 @@
        </widget>
       </item>
       <item row="0" column="5">
-       <widget class="QLineEdit" name="coor_NEX"/>
+       <widget class="QLineEdit" name="coor_NEX">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label_3">
@@ -145,7 +165,11 @@
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QLineEdit" name="coor_NWY"/>
+       <widget class="QLineEdit" name="coor_NWY">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1">
        <widget class="QLabel" name="label_4">
@@ -155,10 +179,18 @@
        </widget>
       </item>
       <item row="2" column="5">
-       <widget class="QLineEdit" name="coor_SEX"/>
+       <widget class="QLineEdit" name="coor_SEX">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="1" column="5">
-       <widget class="QLineEdit" name="coor_NEY"/>
+       <widget class="QLineEdit" name="coor_NEY">
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
       </item>
       <item row="2" column="3">
        <widget class="QLabel" name="label_13">
