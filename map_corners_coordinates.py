@@ -38,10 +38,12 @@ import os.path
 # from os.path import dirname, ...
 
 class MapCornersCoordinates():
+    
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):
-        """Constructor.
+        
+      """Constructor.
 
         :param iface: An interface instance that will be passed to this class
             which provides the hook by which you can manipulate the QGIS
@@ -79,7 +81,9 @@ class MapCornersCoordinates():
         self.toolbar = self.iface.addToolBar(self.tr(u'Map Corners Coordinates'))
         self.toolbar.setObjectName('MapCornersCoordinates')
 
-        self.dlg.saveButton.setEnabled(False)        
+        # Disable saveButton since there is no file chosen (method dirButton)
+        self.dlg.saveButton.setEnabled(False)
+
         self.dlg.captureButton.clicked.connect(self.readCoor)
         self.dlg.saveButton.clicked.connect(self.saveCoor)
         
@@ -91,6 +95,17 @@ class MapCornersCoordinates():
         self.dlg.dir_toolbutton.clicked.connect(self.dirButton)
 
     def tr(self, message):
+        
+        """Get the translation for a string using Qt translation API.
+        
+        We implement this ourselves since we do not inherit QObject.
+        
+        :param message: String for translation.
+        :type message: str, QString
+        
+        :returns: Translated version of message.
+        :rtype: QString
+        """
         # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
         return QCoreApplication.translate('Map_Corners_Coordinates', message)
 
@@ -105,6 +120,55 @@ class MapCornersCoordinates():
         status_tip=None,
         whats_this=None,
         parent=None):
+            
+            
+        """ Add a toolbar icon to the toolbar.
+        
+        :param icon_path: Path to the icon for this action. Can be a resource
+            path (e.g. ':/plugins/foo/bar.png') or a normal file system path.
+            
+        :type icon_path: str
+        
+        :param text: Text that should be shown in menu items for this action.
+        
+        :type text: unicode
+        
+        :param callback: Function to be called when the action is triggered.
+        
+        :type callback: function
+        
+        :param enabled_flag: A flag indicating if the action should be enabled
+                by default. Defaults to True.
+                
+        :type enabled_flag: bool
+        
+        :param add_to_menu: Flag indicating whether the action should also
+            be added to the menu. Defaults to True.
+            
+        :type add_to_menu: bool
+        
+        :param add_to_toolbar: Flag indicating whether the action should also
+            be added to the toolbar. Defaults to True.
+            
+        :type add_to_toolbar: bool
+        
+        :param status_tip: Optional text to show in a popup when mouse pointer
+            hovers over the action.
+            
+        :type status_tip: str
+        
+        :param parent: Parent widget for the new action. Defaults None.
+        
+        :type parent: QWidget
+        
+        :param whats_this: Optional text to show in the status bar when the
+            mouse pointer hovers over the action.
+            
+        :returns: The action that was created. Note that the action is also
+            added to self.actions list.
+            
+        :rtype: QAction
+        """
 
         icon = QIcon(icon_path)
         action = QAction(icon, text, parent)
@@ -134,7 +198,9 @@ class MapCornersCoordinates():
         return action
 
     def initGui(self):
+        
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
+        
         icon_path = ':/plugins/Map_Corners_Coordinates/icon.png'
         self.add_action(
             icon_path,
@@ -142,46 +208,46 @@ class MapCornersCoordinates():
             callback=self.run,
             parent=self.iface.mainWindow())
 
-#        self.action.triggered.connect(self.run)
-#        # Create the docked panel
-        #print "self.iface.mainWindow = %s" % self.iface.mainWindow()
-#        self.dockWidget = MapCornersCoordinatesDialog(self.iface.mainWindow())
-#        self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dlg)
-     
     def unload(self):
-#        # debug( "LrsPlugin.unload" )
+
+        """Removes the plugin menu item and icon from QGIS GUI."""
+
         self.dlg.close()
         self.iface.removeDockWidget(self.dlg)
 
-        """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginMenu(
-                self.tr(u'&Map_Corners_Coordinates'),
+                self.tr(u'&Map Corners Coordinates'),
                 action)
             self.iface.removeToolBarIcon(action)
         # remove the toolbar
         del self.toolbar
 
     def dirButton(self):
-        """TODO.
-        """
+        
+        """Gets the destination file, where captured coords are saved."""
+        
         self.namedir = QFileDialog.getSaveFileName(self.dlg, self.tr(u"Select destination file"))
         self.dlg.dir_name.setText(self.namedir)
+       
+        # Enable the saveButton since file is chosen
         self.dlg.saveButton.setEnabled(True)        
 
     def readCoor(self):
-        """TODO.
-        """
-        #get map canvas extent (W, E, N, S)
-           
+        
+        """Gets map canvas coords, writes them to corresponding widgets. 
+           Transforms coords to EPSG:4326."""
+        
+        # Get map canvas extent (W, E, N, S)
         e = self.iface.mapCanvas().extent()
         
+        # Transform the actual crs to EPSG:4326 if the actual crs is not EPSG:4326 itself 
         if self.dlg.system_box.currentText() == "EPSG:4326" and self.crs.authid() <> "EPSG:4326":
             crsSrc = QgsCoordinateReferenceSystem(str(self.crs.authid()))
             crsDest = QgsCoordinateReferenceSystem("EPSG:4326")
             tr = QgsCoordinateTransform(crsSrc,crsDest)
             e = tr.transform(e)
-                                            
+        
         self.dlg.coor_NEX.setText(str(e.xMaximum()))
         self.dlg.coor_NEY.setText(str(e.yMaximum()))
         self.dlg.coor_NWX.setText(str(e.xMinimum()))
@@ -192,8 +258,9 @@ class MapCornersCoordinates():
         self.dlg.coor_SWY.setText(str(e.yMinimum()))
 
     def saveCoor(self):
-        """TODO.
-        """
+        
+        """Saves coords to file."""
+        
         fileName = self.dlg.dir_name.text()
         if not fileName:
             self.iface.messageBar().pushMessage(self.tr(u"Error"),
@@ -242,8 +309,10 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
                                             level=QgsMessageBar.INFO, duration = 3)
 
     def run(self):
-        """TODO.
-        """
+        
+        """Clears editable widgets. 
+           Populates combo box with the actual crs and with EPSG:4326. """
+           
         self.dlg.coor_NEX.clear()
         self.dlg.coor_NEY.clear()
         self.dlg.coor_NWX.clear()
@@ -254,13 +323,14 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
         self.dlg.coor_SWY.clear()
         
         self.dlg.dir_name.clear()
+        self.dlg.system_box.clear()
         
+        # Declares the actual crs, latest versions of qgis does not support "mapRenderer()"
         try:
             self.crs = self.iface.mapCanvas().mapSettings().destinationCrs()
         except:
             self.crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
         
-        self.dlg.system_box.clear()
         if self.crs.authid() == "EPSG:4326":
             self.dlg.system_box.addItems([str(self.crs.authid())])
         else:
@@ -275,9 +345,3 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
         # Run the dialog event loop
 #        result = self.dlg.exec_()
         self.dlg.saveButton.setEnabled(False)
-
-        # See if OK was pressed
- #       if result:
-            # Do something useful here - delete the line containing pass and
-            # substitute with your code.
-  #          pass
