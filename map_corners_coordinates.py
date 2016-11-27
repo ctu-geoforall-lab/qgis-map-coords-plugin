@@ -344,6 +344,5 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
         # show the dialog
         self.dlg.show()
 
-        # Run the dialog event loop
-#        result = self.dlg.exec_()
+        # Disable saveButton for future plugin reopening
         self.dlg.saveButton.setEnabled(False)
