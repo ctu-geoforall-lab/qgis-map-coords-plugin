@@ -88,7 +88,10 @@ class MapCornersCoordinates():
 
         self.dlg.captureButton.clicked.connect(self.readCoor)
         self.dlg.saveButton.clicked.connect(self.saveCoor)
-        
+
+        # TODO: how to solve using QgsMapSettings ?
+        self.iface.mapCanvas().mapRenderer().destinationSrsChanged.connect(self.updateCrs)
+
         # add plugin icon into plugin toolbar
         self.toolButton = QToolButton()
         self.iface.addToolBarWidget(self.toolButton)
@@ -244,6 +247,12 @@ class MapCornersCoordinates():
         # Transform the actual crs to EPSG:4326 if the actual crs is not EPSG:4326 itself 
         if self.dlg.system_box.currentText() == "EPSG:4326" and self.crs.authid() != "EPSG:4326":
             crsSrc = QgsCoordinateReferenceSystem(str(self.crs.authid()))
+            if not crsSrc.isValid():
+                self.iface.messageBar().pushMessage(self.tr(u"Error"),
+                                                    self.tr(u"{} is not valid SRS.").format(self.crs.authid()),
+                                                    level=QgsMessageBar.CRITICAL, duration = 3)
+                return
+
             crsDest = QgsCoordinateReferenceSystem("EPSG:4326")
             tr = QgsCoordinateTransform(crsSrc,crsDest)
             e = tr.transform(e)
@@ -308,6 +317,19 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
                                             "File {} saved.".format(fileName),
                                             level=QgsMessageBar.INFO, duration = 3)
 
+    def updateCrs(self):
+        self.crs = self.getMapCanvasCrs()
+        self.dlg.system_box.setItemText(0, self.crs.authid())
+
+    def getMapCanvasCrs(self):
+        # Declares the actual crs, latest versions of qgis does not support "mapRenderer()"
+        try:
+            crs = self.iface.mapCanvas().mapSettings().destinationCrs()
+        except:
+            crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
+
+        return crs
+
     def run(self):
         
         """Clears editable widgets. 
@@ -324,13 +346,8 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
         
         self.dlg.dir_name.clear()
         self.dlg.system_box.clear()
-        
-        # Declares the actual crs, latest versions of qgis does not support "mapRenderer()"
-        try:
-            self.crs = self.iface.mapCanvas().mapSettings().destinationCrs()
-        except:
-            self.crs = self.iface.mapCanvas().mapRenderer().destinationCrs()
-        
+
+        self.crs = self.getMapCanvasCrs()
         if self.crs.authid() == "EPSG:4326":
             self.dlg.system_box.addItems([str(self.crs.authid())])
         else:
