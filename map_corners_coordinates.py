@@ -283,7 +283,7 @@ class MapCornersCoordinates():
             return
           
         f.write('''{title}
-CRS: {crs}
+SRS: {crs}
 NW (X): {nw_x}
 NW (Y): {nw_y}
 NE (X): {ne_x}
