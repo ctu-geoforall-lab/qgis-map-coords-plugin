@@ -22,7 +22,6 @@
 """
 from PyQt4.QtCore import QSettings, QTranslator, qVersion, Qt
 from PyQt4.QtGui import QComboBox, QToolButton, QIcon, QAction, QFileDialog
-# from qgis.gui import *
 from qgis.core import QCoreApplication, QgsCoordinateTransform, QgsCoordinateReferenceSystem
 from qgis.utils import QgsMessageBar
 
@@ -216,7 +215,7 @@ class MapCornersCoordinates():
 
     def unload(self):
 
-        """Removes the plugin menu item and icon from QGIS GUI."""
+        """Remove the plugin menu item and icon from QGIS GUI."""
 
         self.dlg.close()
         self.iface.removeDockWidget(self.dlg)
@@ -231,12 +230,16 @@ class MapCornersCoordinates():
 
     def dirButton(self):
         
-        """Gets the destination file, where captured coordinates are saved."""
+        """Get the destination file, where captured coordinates are saved."""
         
         self.namedir = QFileDialog.getSaveFileName(self.dlg, self.tr(u"Select destination file"))
         self.dlg.dir_name.setText(self.namedir)
-        # Enable the saveButton since file is chosen
-        self.dlg.saveButton.setEnabled(True)        
+
+        # Enable the saveButton if file is chosen
+        if not self.dlg.dir_name.text():
+		self.dlg.saveButton.setEnabled(False)  	
+	else:
+		self.dlg.saveButton.setEnabled(True)      
 
     def transformCrs(self):
 
@@ -259,7 +262,7 @@ class MapCornersCoordinates():
 
     def readCoor(self):
         
-        """Gets map canvas coordinates, writes them to corresponding widgets."""
+        """Get map canvas coordinates, write them to corresponding widgets."""
         
         self.transformCrs()
 
@@ -274,7 +277,7 @@ class MapCornersCoordinates():
 
     def saveCoor(self):
         
-        """Saves coordinates to file."""
+        """Save coordinates to file."""
         
         fileName = self.dlg.dir_name.text()
         if not fileName:
@@ -325,7 +328,7 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
 
     def updateCrs(self):
 
-        """ Populates combo box with the actual crs and/or with EPSG:4326. """
+        """ Populate combo box with the actual crs and/or with EPSG:4326. """
 
         self.crs = self.getMapCanvasCrs()
         self.dlg.system_box.clear()
@@ -337,7 +340,7 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
 
     def getMapCanvasCrs(self):
 
-        """ Declares the actual crs, latest versions of qgis does not support 'mapRenderer()' """
+        """ Declare the actual crs, latest versions of qgis does not support 'mapRenderer()' """
 
         try:
             crs = self.iface.mapCanvas().mapSettings().destinationCrs()
