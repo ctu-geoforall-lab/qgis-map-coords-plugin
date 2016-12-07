@@ -89,8 +89,11 @@ class MapCornersCoordinates():
         self.dlg.captureButton.clicked.connect(self.readCoor)
         self.dlg.saveButton.clicked.connect(self.saveCoor)
 
-        # TODO: how to solve using QgsMapSettings ?
-        self.iface.mapCanvas().mapRenderer().destinationSrsChanged.connect(self.updateCrs)
+        # Update system_Box on map crs changed
+        try:
+            self.iface.mapCanvas().destinationCrsChanged.connect(self.updateCrs)
+        except:
+            self.iface.mapCanvas().mapRenderer().destinationSrsChanged.connect(self.updateCrs)
 
         # add plugin icon into plugin toolbar
         self.toolButton = QToolButton()
@@ -236,35 +239,39 @@ class MapCornersCoordinates():
         # Enable the saveButton since file is chosen
         self.dlg.saveButton.setEnabled(True)        
 
-    def readCoor(self):
-        
-        """Gets map canvas coordinates, writes them to corresponding widgets.
-           Transforms coordinates to EPSG:4326."""
-        
+    def transformCrs(self):
+
+        """ Transform the actual crs to EPSG:4326 if the actual crs is not EPSG:4326 itself """
+
         # Get map canvas extent (W, E, N, S)
-        e = self.iface.mapCanvas().extent()
-        
-        # Transform the actual crs to EPSG:4326 if the actual crs is not EPSG:4326 itself 
+        self.e = self.iface.mapCanvas().extent()
+
         if self.dlg.system_box.currentText() == "EPSG:4326" and self.crs.authid() != "EPSG:4326":
             crsSrc = QgsCoordinateReferenceSystem(str(self.crs.authid()))
             if not crsSrc.isValid():
                 self.iface.messageBar().pushMessage(self.tr(u"Error"),
                                                     self.tr(u"{} is not valid SRS.").format(self.crs.authid()),
-                                                    level=QgsMessageBar.CRITICAL, duration = 3)
+                                                    level=QgsMessageBar.CRITICAL, duration=3)
                 return
 
             crsDest = QgsCoordinateReferenceSystem("EPSG:4326")
-            tr = QgsCoordinateTransform(crsSrc,crsDest)
-            e = tr.transform(e)
+            tr = QgsCoordinateTransform(crsSrc, crsDest)
+            self.e = tr.transform(self.e)
+
+    def readCoor(self):
         
-        self.dlg.coor_NEX.setText(str(e.xMaximum()))
-        self.dlg.coor_NEY.setText(str(e.yMaximum()))
-        self.dlg.coor_NWX.setText(str(e.xMinimum()))
-        self.dlg.coor_NWY.setText(str(e.yMaximum()))
-        self.dlg.coor_SEX.setText(str(e.xMaximum()))
-        self.dlg.coor_SEY.setText(str(e.yMinimum()))
-        self.dlg.coor_SWX.setText(str(e.xMinimum()))
-        self.dlg.coor_SWY.setText(str(e.yMinimum()))
+        """Gets map canvas coordinates, writes them to corresponding widgets."""
+        
+        self.transformCrs()
+
+        self.dlg.coor_NEX.setText(str(self.e.xMaximum()))
+        self.dlg.coor_NEY.setText(str(self.e.yMaximum()))
+        self.dlg.coor_NWX.setText(str(self.e.xMinimum()))
+        self.dlg.coor_NWY.setText(str(self.e.yMaximum()))
+        self.dlg.coor_SEX.setText(str(self.e.xMaximum()))
+        self.dlg.coor_SEY.setText(str(self.e.yMinimum()))
+        self.dlg.coor_SWX.setText(str(self.e.xMinimum()))
+        self.dlg.coor_SWY.setText(str(self.e.yMinimum()))
 
     def saveCoor(self):
         
@@ -318,11 +325,21 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
                                             level=QgsMessageBar.INFO, duration = 3)
 
     def updateCrs(self):
+
+        """ Populates combo box with the actual crs and/or with EPSG:4326. """
+
         self.crs = self.getMapCanvasCrs()
-        self.dlg.system_box.setItemText(0, self.crs.authid())
+        self.dlg.system_box.clear()
+        if self.crs.authid() == "EPSG:4326":
+            self.dlg.system_box.addItems([str(self.crs.authid())])
+        else:
+            self.dlg.system_box.addItems([str(self.crs.authid()), "EPSG:4326"])
+
 
     def getMapCanvasCrs(self):
-        # Declares the actual crs, latest versions of qgis does not support "mapRenderer()"
+
+        """ Declares the actual crs, latest versions of qgis does not support 'mapRenderer()' """
+
         try:
             crs = self.iface.mapCanvas().mapSettings().destinationCrs()
         except:
@@ -332,9 +349,9 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
 
     def run(self):
         
-        """Clears editable widgets. 
-           Populates combo box with the actual crs and with EPSG:4326. """
-           
+        """ Dock widget, populate system box with crs on plugin start. """
+
+        # Clear editable widgets
         self.dlg.coor_NEX.clear()
         self.dlg.coor_NEY.clear()
         self.dlg.coor_NWX.clear()
@@ -346,12 +363,7 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
         
         self.dlg.dir_name.clear()
         self.dlg.system_box.clear()
-
-        self.crs = self.getMapCanvasCrs()
-        if self.crs.authid() == "EPSG:4326":
-            self.dlg.system_box.addItems([str(self.crs.authid())])
-        else:
-            self.dlg.system_box.addItems([str(self.crs.authid()),"EPSG:4326"])
+        self.updateCrs()
 
         # dock widget to the area on the left side
         self.iface.addDockWidget(Qt.LeftDockWidgetArea, self.dlg)
