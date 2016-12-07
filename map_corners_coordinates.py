@@ -235,7 +235,6 @@ class MapCornersCoordinates():
         
         self.namedir = QFileDialog.getSaveFileName(self.dlg, self.tr(u"Select destination file"))
         self.dlg.dir_name.setText(self.namedir)
-       
         # Enable the saveButton since file is chosen
         self.dlg.saveButton.setEnabled(True)        
 
