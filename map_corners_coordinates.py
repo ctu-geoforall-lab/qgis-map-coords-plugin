@@ -237,9 +237,9 @@ class MapCornersCoordinates():
 
         # Enable the saveButton if file is chosen
         if not self.dlg.dir_name.text():
-		self.dlg.saveButton.setEnabled(False)  	
-	else:
-		self.dlg.saveButton.setEnabled(True)      
+            self.dlg.saveButton.setEnabled(False)
+        else:
+            self.dlg.saveButton.setEnabled(True)
 
     def transformCrs(self):
 
