@@ -3,18 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Map_Corners_Coordinates's documentation!
+Welcome to Map Corners Coordinates's documentation!
 ============================================
 
-Contents:
+Description
+***********
+This plugin shows coordinates of corners of current map canvas on the screen. Captured coordinates can be saved as .txt file. User may choose the coordinate system between EPSG:4326 and the current one.
 
-.. toctree::
-   :maxdepth: 2
 
-Indices and tables
-==================
+Screens of plugin
+****************
+.. figure:: pluginScreen.png
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+	    Plugin
+   
+.. figure:: output.png
 
+	    Output file
+	
