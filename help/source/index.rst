@@ -16,7 +16,7 @@ Screens of plugin
 .. figure:: pluginScreen.png
 
 	    Plugin
-   
+|   
 .. figure:: output.png
 
 	    Output file
