@@ -14,9 +14,7 @@ version=0.1
 author=Kala, Kulovana, Landa
 email=michael.kala193@gmail.com
 
-about=This plugin shows coordinates of corners of current map canvas on the
-screen. Captured coordinates can be saved as plain text file. User may
-choose the coordinate system between WGS-84 (EPSG:4326) and the current one.
+about=This plugin shows coordinates of corners of current map canvas on the screen. Captured coordinates can be saved as plain text file. User may choose the coordinate system between WGS-84 (EPSG:4326) and the current one.
 
 tracker=https://github.com/ctu-geoforall-lab/qgis-map-coords-plugin/issues
 repository=https://github.com/ctu-geoforall-lab/qgis-map-coords-plugin
