@@ -302,14 +302,14 @@ class MapCornersCoordinates():
           
         f.write('''{title}
 SRS: {crs}
-NW (X): {nw_x}
-NW (Y): {nw_y}
-NE (X): {ne_x}
-NE (Y): {ne_y}
-SE (X): {se_x}
-SE (Y): {se_y}
-SW (X): {sw_x}
-SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
+NW (upper left)   (X): {nw_x}
+NW (upper left)   (Y): {nw_y}
+NE (upper right)  (X): {ne_x}
+NE (upper right)  (Y): {ne_y}
+SE (bottom right) (X): {se_x}
+SE (bottom right) (Y): {se_y}
+SW (bottom left)  (X): {sw_x}
+SW (bottom left)  (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
                              crs=self.dlg.system_box.currentText(),
                              nw_x=self.dlg.coor_NWX.text(),
                              nw_y=self.dlg.coor_NWY.text(),
