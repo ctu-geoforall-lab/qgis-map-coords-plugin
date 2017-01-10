@@ -310,7 +310,7 @@ SE (bottom right) (X): {se_x}
 SE (bottom right) (Y): {se_y}
 SW (bottom left)  (X): {sw_x}
 SW (bottom left)  (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
-                             project=QFileInfo(QgsProject.instance().fileName()).fileName(),
+                             project=QFileInfo(QgsProject.instance().fileName()).fileName().split('.')[0],
                              crs=self.dlg.system_box.currentText(),
                              nw_x=self.dlg.coor_NWX.text(),
                              nw_y=self.dlg.coor_NWY.text(),
