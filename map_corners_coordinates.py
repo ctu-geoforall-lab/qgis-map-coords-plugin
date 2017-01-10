@@ -335,7 +335,7 @@ SW (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
         if self.crs.authid() == "EPSG:4326":
             self.dlg.system_box.addItems([str(self.crs.authid())])
         else:
-            self.dlg.system_box.addItems([str(self.crs.authid()), "EPSG:4326"])
+            self.dlg.system_box.addItems(["EPSG:4326", str(self.crs.authid())])
 
 
     def getMapCanvasCrs(self):
