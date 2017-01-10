@@ -20,9 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings, QTranslator, qVersion, Qt
+from PyQt4.QtCore import QSettings, QTranslator, qVersion, Qt, QFileInfo
 from PyQt4.QtGui import QComboBox, QToolButton, QIcon, QAction, QFileDialog
-from qgis.core import QCoreApplication, QgsCoordinateTransform, QgsCoordinateReferenceSystem
+from qgis.core import QCoreApplication, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsProject
 from qgis.utils import QgsMessageBar
 
 
@@ -301,6 +301,7 @@ class MapCornersCoordinates():
             return
           
         f.write('''{title}
+Project: {project}
 SRS: {crs}
 NW (upper left)   (X): {nw_x}
 NW (upper left)   (Y): {nw_y}
@@ -310,6 +311,7 @@ SE (bottom right) (X): {se_x}
 SE (bottom right) (Y): {se_y}
 SW (bottom left)  (X): {sw_x}
 SW (bottom left)  (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
+                             project=QFileInfo(QgsProject.instance().fileName()).fileName(),
                              crs=self.dlg.system_box.currentText(),
                              nw_x=self.dlg.coor_NWX.text(),
                              nw_y=self.dlg.coor_NWY.text(),
