@@ -302,12 +302,16 @@ class MapCornersCoordinates():
         f.write('''{title}
 Project: {project}
 SRS: {crs}
+
 NW (upper left)   (X): {nw_x}
 NW (upper left)   (Y): {nw_y}
+
 NE (upper right)  (X): {ne_x}
 NE (upper right)  (Y): {ne_y}
+
 SE (bottom right) (X): {se_x}
 SE (bottom right) (Y): {se_y}
+
 SW (bottom left)  (X): {sw_x}
 SW (bottom left)  (Y): {sw_y}{ls}'''.format(title='Map Corners Coordinates',
                              project=QFileInfo(QgsProject.instance().fileName()).fileName().split('.')[0],
