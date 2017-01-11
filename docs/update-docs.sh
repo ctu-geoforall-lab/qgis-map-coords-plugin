@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 # build docs
 git checkout gh-pages
 rm -rf *
