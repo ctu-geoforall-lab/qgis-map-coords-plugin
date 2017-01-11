@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Map_Corners_Coordinates'
-copyright = u'2016 Kulovaná, Kala, Landa'
+project = u'Map Corners Coordinates Plugin'
+copyright = u'2016-2017 Kulovaná, Kala, Landa'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -141,7 +141,7 @@ html_static_path = ['_static']
 #html_domain_indices = True
 
 # If false, no index is generated.
-#html_use_index = True
+html_use_index = False
 
 # If true, the index is split into individual pages for each letter.
 #html_split_index = False
