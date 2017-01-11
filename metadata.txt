@@ -12,7 +12,7 @@ qgisMinimumVersion=2.8
 description=QGIS plugin for saving map canvas coordinates into a text file.
 version=0.1
 author=Kala, Kulovana, Landa
-email=michael.kala193@gmail.com
+email=martin.landa@fsv.cvut.cz
 
 about=The plugin shows current corners coordinates of map canvas on the screen. Captured coordinates can be saved into plain text file. User may choose the spatial reference system (SRS) of coordinates between WGS-84 (EPSG:4326) and SRS of map canvas.
 
