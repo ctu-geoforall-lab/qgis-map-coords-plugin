@@ -1,5 +1,5 @@
-Map Corners Coordinates's documentation
-=======================================
+Map Corners Coordinates Plugin documentation
+============================================
 
 Description
 ***********
@@ -39,3 +39,26 @@ Example of saved plain text file:
    SE (bottom right) (Y): 47.3080303598
    SW (bottom left)  (X): 11.1206420409
    SW (bottom left)  (Y): 47.3080303598
+
+Authors
+*******
+
+* Michael Kala
+* Tereza Kulovana
+
+`GeoForAll Laboratory <http://geomatics.fsv.cvut.cz/research/osgeorel/>`__ at Czech Technical University in Prague, Czech Republic
+
+In collaboration with `SURO <http://www.suro.cz>`__.
+
+Under supervison of Martin Landa
+
+Licence
+^^^^^^^
+
+Souce code (https://github.com/ctu-geoforall-lab/qgis-map-coords-plugin)
+licenced under GNU GPL 2 and higher.
+
+Report bugs
+^^^^^^^^^^^
+
+Please report bugs at https://github.com/ctu-geoforall-lab/qgis-map-coords-plugin/issues
