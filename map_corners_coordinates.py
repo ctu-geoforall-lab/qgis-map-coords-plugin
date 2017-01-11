@@ -231,7 +231,7 @@ class MapCornersCoordinates():
     def dirButton(self):
         
         """Get the destination file, where captured coordinates are saved."""
-        self.namedir = QFileDialog.getSaveFileName(self.dlg, self.tr(u"Select destination file"), QFileInfo(QgsProject.instance().fileName()).fileName().split('.')[0])
+        self.namedir = QFileDialog.getSaveFileName(self.dlg, self.tr(u"Select destination file"), QFileInfo(QgsProject.instance().fileName()).fileName().split('.')[0]+'.txt', '*.txt')
         self.dlg.dir_name.setText(self.namedir)
 
         # Enable the saveButton if file is chosen
