@@ -4,9 +4,10 @@ Map Corners Coordinates's documentation
 Description
 ***********
 
-This plugin shows coordinates of corners of current map canvas on the
-screen. Captured coordinates can be saved as plain text file. User may
-choose the coordinate system between WGS-84 (EPSG:4326) and the current one.
+The plugin shows current corners coordinates of map canvas on the
+screen. Captured coordinates can be saved into plain text file. User
+may choose the spatial reference system (SRS) of coordinates between
+WGS-84 (EPSG:4326) and SRS of map canvas.
 
 
 Screenshots
