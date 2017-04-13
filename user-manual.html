@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Map Corners Coordinates Plugin documentation &mdash; QGIS Map Corners Coordinates Plugin 0.9 documentation</title>
+  <title>User Manual &mdash; QGIS Map Corners Coordinates Plugin 0.9 documentation</title>
   
 
   
@@ -30,8 +30,9 @@
   
 
   
-    <link rel="top" title="QGIS Map Corners Coordinates Plugin 0.9 documentation" href="#"/>
-        <link rel="next" title="User Manual" href="user-manual.html"/> 
+    <link rel="top" title="QGIS Map Corners Coordinates Plugin 0.9 documentation" href="index.html"/>
+        <link rel="next" title="Acknowledgement" href="acknowledgement.html"/>
+        <link rel="prev" title="Map Corners Coordinates Plugin documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -49,7 +50,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> QGIS Map Corners Coordinates Plugin
+            <a href="index.html" class="icon icon-home"> QGIS Map Corners Coordinates Plugin
           
 
           
@@ -83,8 +84,11 @@
           
             
             
-                <ul>
-<li class="toctree-l1"><a class="reference internal" href="user-manual.html">User Manual</a></li>
+                <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#output">Output</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="acknowledgement.html">Acknowledgement</a></li>
 </ul>
 
@@ -99,7 +103,7 @@
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">QGIS Map Corners Coordinates Plugin</a>
+        <a href="index.html">QGIS Map Corners Coordinates Plugin</a>
       </nav>
 
 
@@ -114,13 +118,13 @@
 
 <div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
+    <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li>Map Corners Coordinates Plugin documentation</li>
+    <li>User Manual</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/user-manual.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -130,25 +134,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="map-corners-coordinates-plugin-documentation">
-<h1>Map Corners Coordinates Plugin documentation<a class="headerlink" href="#map-corners-coordinates-plugin-documentation" title="Permalink to this headline">¶</a></h1>
-<p>The plugin shows current corners coordinates of map canvas on the
-screen. Captured coordinates can be saved into plain text file. User
-may choose the spatial reference system (SRS) of coordinates between
-WGS-84 (EPSG:4326) and SRS of map canvas.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="user-manual.html">User Manual</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="user-manual.html#output">Output</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="acknowledgement.html">Acknowledgement</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="acknowledgement.html#authors">Authors</a></li>
-<li class="toctree-l2"><a class="reference internal" href="acknowledgement.html#licence">Licence</a></li>
-<li class="toctree-l2"><a class="reference internal" href="acknowledgement.html#report-bugs-or-enhancements">Report bugs or enhancements</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="user-manual">
+<h1>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-center" id="id1">
+<img alt="_images/pluginScreen.png" src="_images/pluginScreen.png" />
+<p class="caption"><span class="caption-text">Figure 1: Example for WGS-84.</span></p>
+</div>
+<div class="figure align-center" id="id2">
+<img alt="_images/pluginScreen1.png" src="_images/pluginScreen1.png" />
+<p class="caption"><span class="caption-text">Figure 2: Example for user-defined SRS.</span></p>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<p>Example of saved plain text file:</p>
+<div class="highlight-python"><div class="highlight"><pre>Map Corners Coordinates
+Project: webapp
+SRS: EPSG:4326
+NW (upper left)   (X): 11.1206420409
+NW (upper left)   (Y): 52.1110263094
+NE (upper right)  (X): 19.904329479
+NE (upper right)  (Y): 52.1110263094
+SE (bottom right) (X): 19.904329479
+SE (bottom right) (Y): 47.3080303598
+SW (bottom left)  (X): 11.1206420409
+SW (bottom left)  (Y): 47.3080303598
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -159,8 +170,10 @@ WGS-84 (EPSG:4326) and SRS of map canvas.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="user-manual.html" class="btn btn-neutral float-right" title="User Manual" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="acknowledgement.html" class="btn btn-neutral float-right" title="Acknowledgement" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="index.html" class="btn btn-neutral" title="Map Corners Coordinates Plugin documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
