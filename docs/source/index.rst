@@ -1,64 +1,13 @@
 Map Corners Coordinates Plugin documentation
 ============================================
 
-Description
-***********
-
 The plugin shows current corners coordinates of map canvas on the
 screen. Captured coordinates can be saved into plain text file. User
 may choose the spatial reference system (SRS) of coordinates between
 WGS-84 (EPSG:4326) and SRS of map canvas.
 
+.. toctree::
+   :maxdepth: 2
 
-Screenshots
-***********
-
-.. figure:: pluginScreen.png
-
-   *Fig 1: Example for WGS-84*
-
-.. figure:: pluginScreen1.png
-
-   *Fig 2: Example for user-defined SRS*
-
-Output
-******
-
-Example of saved plain text file:
-
-::
-
-   Map Corners Coordinates
-   Project: webapp
-   SRS: EPSG:4326
-   NW (upper left)   (X): 11.1206420409
-   NW (upper left)   (Y): 52.1110263094
-   NE (upper right)  (X): 19.904329479
-   NE (upper right)  (Y): 52.1110263094
-   SE (bottom right) (X): 19.904329479
-   SE (bottom right) (Y): 47.3080303598
-   SW (bottom left)  (X): 11.1206420409
-   SW (bottom left)  (Y): 47.3080303598
-
-Authors
-*******
-
-* Michael Kala
-* Tereza Kulovana
-
-`GeoForAll Laboratory <http://geomatics.fsv.cvut.cz/research/osgeorel/>`__ at Czech Technical University in Prague, Czech Republic
-
-In collaboration with `SURO <http://www.suro.cz>`__.
-
-Under supervison of Martin Landa
-
-Licence
-^^^^^^^
-
-Souce code (https://github.com/ctu-geoforall-lab/qgis-map-coords-plugin)
-licenced under GNU GPL 2 and higher.
-
-Report bugs
-^^^^^^^^^^^
-
-Please report bugs at https://github.com/ctu-geoforall-lab/qgis-map-coords-plugin/issues
+   user-manual
+   acknowledgement
