@@ -8,17 +8,17 @@
 
 """
 
-__author__ = 'michael.kala193@gmail.com'
-__date__ = '2016-10-12'
-__copyright__ = 'Copyright 2016, Kala_Kulovana'
+__author__ = 'martin.landa@fsv.cvut.cz'
+__date__ = '2020-04-06'
+__copyright__ = 'Copyright 2020, Kala, Kulovana, Landa'
 
 import unittest
 
-from PyQt4.QtGui import QIcon
+from PyQt5.QtGui import QIcon
 
 
 
-class Map_Corners_CoordinatesDialogTest(unittest.TestCase):
+class MapCornersCoordinatesDialogTest(unittest.TestCase):
     """Test rerources work."""
 
     def setUp(self):
@@ -31,12 +31,12 @@ class Map_Corners_CoordinatesDialogTest(unittest.TestCase):
 
     def test_icon_png(self):
         """Test we can click OK."""
-        path = ':/plugins/Map_Corners_Coordinates/icon.png'
+        path = ':/plugins/MapCornersCoordinates/icon.png'
         icon = QIcon(path)
         self.assertFalse(icon.isNull())
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(Map_Corners_CoordinatesResourcesTest)
+    suite = unittest.makeSuite(MapCornersCoordinatesResourcesTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 

@@ -15,6 +15,8 @@ Martin Landa.
 In collaboration with National Radiation Protection Institute (SURO),
 Prague, Czech Republic (`SURO <http://www.suro.cz>`__).
 
+Upgrade to QGIS3 API done by `OpenGeoLabs s.r.o <http://www.opengeolabs.cz/en/home>`__.
+
 Licence
 -------
 

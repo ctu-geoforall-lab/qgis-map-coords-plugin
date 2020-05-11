@@ -93,3 +93,6 @@ ENV/
 .idea/
 
 *~
+
+map-coords-plugin.zip
+zip_build

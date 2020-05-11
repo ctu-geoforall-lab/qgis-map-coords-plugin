@@ -7,10 +7,10 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=Map Corners Coordinates (DEV)
-qgisMinimumVersion=2.14
+name=Map Corners Coordinates
+qgisMinimumVersion=3.4
 description=QGIS plugin for saving map canvas coordinates into a text file.
-version=1.1BETA
+version=2.0BETA
 author=Kala, Kulovana, Landa
 email=martin.landa@fsv.cvut.cz
 

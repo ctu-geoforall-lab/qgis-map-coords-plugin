@@ -1,5 +1,5 @@
 # coding=utf-8
-"""Dialog test.
+"""DockWidget test.
 
 .. note:: This program is free software; you can redistribute it and/or modify
      it under the terms of the GNU General Public License as published by
@@ -8,48 +8,38 @@
 
 """
 
-__author__ = 'michael.kala193@gmail.com'
-__date__ = '2016-10-12'
-__copyright__ = 'Copyright 2016, Kala_Kulovana'
+__author__ = 'martin.landa@fsv.cvut.cz'
+__date__ = '2020-04-06'
+__copyright__ = 'Copyright 2020, Kala, Kulovana, Landa'
 
 import unittest
 
-from PyQt4.QtGui import QDialogButtonBox, QDialog
+from PyQt5.QtGui import QDockWidget
 
-from map_corners_coordinates_dialog import Map_Corners_CoordinatesDialog
+from map_corners_coordinates_dockwidget import MapCornersCoordinatesDockWidget
 
 from utilities import get_qgis_app
+
 QGIS_APP = get_qgis_app()
 
 
-class Map_Corners_CoordinatesDialogTest(unittest.TestCase):
-    """Test dialog works."""
+class MapCornersCoordinatesDockWidgetTest(unittest.TestCase):
+    """Test dockwidget works."""
 
     def setUp(self):
         """Runs before each test."""
-        self.dialog = Map_Corners_CoordinatesDialog(None)
+        self.dockwidget = MapCornersCoordinatesDockWidget(None)
 
     def tearDown(self):
         """Runs after each test."""
-        self.dialog = None
+        self.dockwidget = None
 
-    def test_dialog_ok(self):
+    def test_dockwidget_ok(self):
         """Test we can click OK."""
-
-        button = self.dialog.button_box.button(QDialogButtonBox.Ok)
-        button.click()
-        result = self.dialog.result()
-        self.assertEqual(result, QDialog.Accepted)
-
-    def test_dialog_cancel(self):
-        """Test we can click cancel."""
-        button = self.dialog.button_box.button(QDialogButtonBox.Cancel)
-        button.click()
-        result = self.dialog.result()
-        self.assertEqual(result, QDialog.Rejected)
+        pass
 
 if __name__ == "__main__":
-    suite = unittest.makeSuite(Map_Corners_CoordinatesDialogTest)
+    suite = unittest.makeSuite(MapCornersCoordinatesDialogTest)
     runner = unittest.TextTestRunner(verbosity=2)
     runner.run(suite)
 

@@ -6,8 +6,6 @@ screen. Captured coordinates can be saved into plain text file. User
 may choose the spatial reference system (SRS) of coordinates between
 WGS-84 (EPSG:4326) and SRS of map canvas.
 
-.. warning:: This plugin is currently available only for **QGIS 2.x**!
-
 .. toctree::
    :maxdepth: 2
 

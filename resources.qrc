@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/Map_Corners_Coordinates" >
+    <qresource prefix="/plugins/map_corners_coordinates" >
         <file>icon.png</file>
     </qresource>
 </RCC>

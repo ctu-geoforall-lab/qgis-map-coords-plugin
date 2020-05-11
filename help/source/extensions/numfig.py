@@ -92,7 +92,7 @@ def clean_env(app):
 
 def setup(app):
     app.add_config_value('number_figures', True, True)
-    app.add_config_value('figure_caption_prefix', u"Figure", True)
+    app.add_config_value('figure_caption_prefix', "Figure", True)
 
     app.add_node(page_ref,
                  text=(skip_page_ref, None),
